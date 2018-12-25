@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
     end
 
     def goodbye
-        render plain: "Bye!"    
+        render plain: "Здорова, Кобан!"    
     end
 
 end
