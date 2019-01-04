@@ -4,6 +4,10 @@
   <strong>Name:</strong>
   <%= @publisher.name %>
 </p>
+<h1>Books:</h1>
+<% @publisher.books.each do |book| %>
+  <p><b> <%= book.author %></b> <%= book.title %></p>
+<% end %>
 
 <%= link_to 'Edit', edit_publisher_path(@publisher) %> |
 <%= link_to 'Back', publishers_path %>
