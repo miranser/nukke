@@ -11,3 +11,13 @@ end
         publisher_id: Faker::Base.rand(Publisher.count)
     })
 end
+
+5.times do
+    Shop.create({
+        name: Faker::TwinPeaks.location
+    })    
+end
+
+
+
+
