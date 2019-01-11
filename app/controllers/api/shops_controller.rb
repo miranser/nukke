@@ -6,6 +6,7 @@ module Api
         end
         
         def show
+            @shop = Shop.find(params[:id])
             render json: @shop, serializer: ShopSerializer
         end
 
