@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class PublishersController < ApplicationController
-  before_action :set_publisher, only: [:show, :edit, :update, :destroy]
+  before_action :set_publisher, only: %i[show edit update destroy]
 
   # GET /publishers
   # GET /publishers.json
@@ -9,8 +11,7 @@ class PublishersController < ApplicationController
 
   # GET /publishers/1
   # GET /publishers/1.json
-  def show
-  end
+  def show; end
 
   # GET /publishers/new
   def new
@@ -18,8 +19,7 @@ class PublishersController < ApplicationController
   end
 
   # GET /publishers/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /publishers
   # POST /publishers.json
@@ -62,13 +62,14 @@ class PublishersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_publisher
-      @publisher = Publisher.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def publisher_params
-      params.require(:publisher).permit(:name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_publisher
+    @publisher = Publisher.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def publisher_params
+    params.require(:publisher).permit(:name)
+  end
 end

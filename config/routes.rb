@@ -10,6 +10,10 @@ Rails.application.routes.draw do
     resources :books
     resources :publishers
     resources :shops
+
+    get '/shops/info/:id', to: 'shops#info'
+    get '/publishers/info/:id', to: 'publishers#info'
+    post '/shops/:id/sell', to: 'shops#sell'
   end
   
 end

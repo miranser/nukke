@@ -1,10 +1,9 @@
-include ActiveModel::Serialization
+# frozen_string_literal: true
+
 module Api
   class BooksController < ApplicationController
-   
     before_action :set_book, only: [:show]
-    
-  
+
     def index
       @books = Book.all
       render json: @books, each_serializer: BookSerializer
@@ -15,22 +14,23 @@ module Api
     end
 
     def create
-        @book = Book.new(book_params)
-        if @book.save
-            render json: @book, serializer: BookSerializer
-        else
-            render json: {status: "ERROR", message: "Book is not saved", data: @book.errors}
-        end
+      @book = Book.new(book_params)
+      if @book.save
+        render json: @book, serializer: BookSerializer
+      else
+        render json: { message: 'Book is not saved', data: @book.errors },
+               status: 422
+      end
     end
 
     private
 
     def set_book
-        @book = Book.find(params[:id])
+      @book = Book.find(params[:id])
     end
 
     def book_params
-        params.permit(:title, :author, :publisher_id)
+      params.permit(:title, :author, :publisher_id)
     end
   end
 end

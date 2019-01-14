@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_10_100043) do
+ActiveRecord::Schema.define(version: 2019_01_11_213203) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 2019_01_10_100043) do
     t.bigint "shop_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "copies_in_stock", null: false
     t.index ["book_id"], name: "index_book_shops_on_book_id"
     t.index ["shop_id"], name: "index_book_shops_on_shop_id"
   end
@@ -33,13 +34,6 @@ ActiveRecord::Schema.define(version: 2019_01_10_100043) do
     t.index ["publisher_id"], name: "index_books_on_publisher_id"
   end
 
-  create_table "books_shops", id: false, force: :cascade do |t|
-    t.bigint "book_id", null: false
-    t.bigint "shop_id", null: false
-    t.index ["book_id", "shop_id"], name: "index_books_shops_on_book_id_and_shop_id"
-    t.index ["shop_id", "book_id"], name: "index_books_shops_on_shop_id_and_book_id"
-  end
-
   create_table "publishers", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -50,6 +44,7 @@ ActiveRecord::Schema.define(version: 2019_01_10_100043) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "books_sold_count", null: false
   end
 
   add_foreign_key "book_shops", "books"

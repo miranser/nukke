@@ -14,10 +14,14 @@ end
 
 5.times do
     Shop.create({
-        name: Faker::TwinPeaks.location
+        name: Faker::TwinPeaks.location,
+        books_sold_count: Faker::Base.rand(100)
     })    
 end
-
-
-
-
+10.times do
+BookShop.create({
+    book_id: Faker::Base.rand(Book.count),
+    shop_id: Faker::Base.rand(Shop.count),
+    copies_in_stock: Faker::Base.rand(10)
+})
+end
