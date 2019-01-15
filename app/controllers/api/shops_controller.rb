@@ -23,10 +23,11 @@ module Api
     end
 
     def sell
-      books_in_stock = @shop.books
-      sell_params.each do |book_to_sell|
-        books_in_stock.find(book_to_sell.id).copies_in_stock -= book_to_sell.copies_sold
-        @shop.copies_sold += book_to_sell.copies_sold
+      stocks = @shop.book_shops
+      params[:books].each do |book_to_sell|
+        new_values = calculated_count(book_to_sell)
+        @shop.update(books_sold_count: new_values['total_copies'])
+        stocks.find_by('book_id': book_to_sell[:book_id]).update(copies_in_stock: new_values['remain_in_stock'])
       end
       if @shop.save
         render json: @shop, serializer: ShopSerializer
@@ -46,8 +47,17 @@ module Api
       params.permit(:name)
     end
 
-    def sell_params
-      params.permit(%i[book_id copies_sold])
+    def sell_params(record)
+      record.require(:books).permit(:book_id, :copies_sold)
+      # params.permit(%i[book_id copies_sold])
+    end
+
+    def calculated_count(book)
+      puts book
+      values = {}
+      values['total_copies'] = @shop.books_sold_count + book[:copies_sold]
+      values['remain_in_stock'] = @shop.book_shops.find_by('book_id': book[:book_id]).copies_in_stock - book[:copies_sold]
+      values
     end
   end
 end

@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
     get '/shops/info/:id', to: 'shops#info'
     get '/publishers/info/:id', to: 'publishers#info'
-    post '/shops/:id/sell', to: 'shops#sell'
+    put '/shops/:id/sell', to: 'shops#sell'
   end
   
 end
