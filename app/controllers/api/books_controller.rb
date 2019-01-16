@@ -16,10 +16,9 @@ module Api
     def create
       @book = Book.new(book_params)
       if @book.save
-        render json: @book, serializer: BookSerializer
+        head :created
       else
-        render json: { message: 'Book is not saved', data: @book.errors },
-               status: 422
+        head :unprocessable_entity
       end
     end
 
@@ -30,7 +29,7 @@ module Api
     end
 
     def book_params
-      params.permit(:title, :author, :publisher_id)
+      params.permit(:title, :author, :publisher_id, :book)
     end
   end
 end
