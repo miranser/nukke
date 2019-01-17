@@ -3,12 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe Api::BooksController, type: :request do
-  describe 'Books GET request' do
-    before do
+  before do
       @book_one = create(:book)
       @book_two = create(:book)
     end
 
+  describe '#index' do
+    
     it 'send all books' do
       get '/api/books'
 
@@ -17,14 +18,15 @@ RSpec.describe Api::BooksController, type: :request do
       json = JSON.parse(response.body)
       expect(json['data'].count).to eq(2)
     end
-
+  end
+  describe '#index:id' do
     it 'shows specific book' do
       get "/api/books/#{@book_one.id}"
 
       expect(response).to have_http_status(:success)
     end
   end
-  describe 'Books POST request' do
+  describe '#create' do
     before do
       @publisher = create(:publisher)
     end
@@ -45,7 +47,6 @@ RSpec.describe Api::BooksController, type: :request do
         post '/api/books', params: valid_params, as: :json
 
         expect(response).to have_http_status(:success)
-      
       end.to change(Book, :count).by(+1)
     end
 

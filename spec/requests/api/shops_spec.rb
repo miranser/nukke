@@ -28,12 +28,44 @@ RSpec.describe Api::ShopsController, type: :request do
     end
   end
 
+  describe '#create' do
+    context 'when params are valid' do
+      let(:valid_shop) { { name: 'test shop' } }
+
+      it 'creates shop' do
+        expect do
+          post '/api/shops', params: valid_shop, as: :json
+        end.to change(Shop, :count).by(1)
+      end
+
+      it 'respond with 201' do
+        post '/api/shops', params: valid_shop, as: :json
+
+        expect(response).to have_http_status(:created)
+      end
+    end
+
+    context 'when params aren\'t valid' do
+      let(:invalid_shop) { { foo: 'bar' } }
+
+      it 'didn\'t creates shop' do
+        expect do
+          post '/api/shops', params: invalid_shop, as: :json
+        end.to change(Shop, :count).by(0)
+      end
+      it 'respond with 422' do
+        post '/api/shops', params: invalid_shop, as: :json
+      end
+    end
+    
+  end
+
   describe 'PUT #shop:id' do
     context 'when params are valid' do
       let(:valid_params) do
         {
           books: [
-             {
+            {
               book_id: book_one.id,
               copies_sold: 1
             },
@@ -56,10 +88,10 @@ RSpec.describe Api::ShopsController, type: :request do
       end
 
       it 'changes copies in stock' do
-      # is_expected.to change(shop_one.book_shops.find_by('book_id': book_one.id), :copies_in_stock).by(-1)
+        # is_expected.to change(shop_one.book_shops.find_by('book_id': book_one.id), :copies_in_stock).by(-1)
         put "/api/shops/#{shop_one.id}/sell", params: valid_params, as: :json
-        
-        expect {stock_one.reload}.to change(stock_one, :copies_in_stock).by(-1)
+
+        expect { stock_one.reload }.to change(stock_one, :copies_in_stock).by(-1)
       end
     end
 
@@ -68,6 +100,23 @@ RSpec.describe Api::ShopsController, type: :request do
       it 'respond with 422' do
         put "/api/shops/#{shop_one.id}/sell", params: invalid_params, as: :json
 
+        expect(response).to have_http_status :unprocessable_entity
+      end
+    end
+    context 'when copies to sell greater than copies in stock' do
+      let(:valid_params) do
+        {
+          books: [
+            {
+              book_id: book_one.id,
+              copies_sold: 6
+            }
+          ]
+        }
+      end
+
+      it 'respond with 422' do
+        put "/api/shops/#{shop_one.id}/sell", params: valid_params, as: :json
         expect(response).to have_http_status :unprocessable_entity
       end
     end

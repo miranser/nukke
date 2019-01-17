@@ -3,7 +3,7 @@
 class Shop < ApplicationRecord
   has_many :book_shops, autosave: true
   has_many :books, through: :book_shops
-
+  validates :name, presence: true
   validates :books_sold_count, presence: true,
                                numericality:
                                { only_integer: true,

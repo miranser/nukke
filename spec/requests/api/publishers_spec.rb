@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::PublishersController, type: :request do
-  describe 'Publisher GET request' do
+  describe 'index' do
     before do
       @publisher_one = create(:publisher)
       @publisher_two = create(:publisher)
@@ -24,7 +24,7 @@ RSpec.describe Api::PublishersController, type: :request do
       expect(response).to have_http_status(:success)
     end
   end
-  describe 'Publishers POST request' do
+  describe 'create' do
     before do
       @publisher = create(:publisher)
     end
