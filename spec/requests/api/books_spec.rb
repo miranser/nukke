@@ -41,9 +41,12 @@ RSpec.describe Api::BooksController, type: :request do
     end
 
     it 'creates book with valid params' do
-      post '/api/books', params: valid_params, as: :json
+      expect do
+        post '/api/books', params: valid_params, as: :json
 
-      expect(response).to have_http_status(:success)
+        expect(response).to have_http_status(:success)
+      
+      end.to change(Book, :count).by(+1)
     end
 
     it 'returns 422 with invalid params' do

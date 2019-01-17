@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :shop do
-    name {'shop_name'}
+    name { 'shop_name' }
+    books_sold_count { 0 }
   end
 end

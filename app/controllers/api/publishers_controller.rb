@@ -2,7 +2,7 @@
 
 module Api
   class PublishersController < ApplicationController
-    before_action :set_publisher, only: %i[show update info]
+    before_action :set_publisher, only: %i[show update]
 
     def index
       @publishers = Publisher.all
@@ -20,15 +20,10 @@ module Api
     def create
       @publisher = Publisher.new(publisher_params)
       if @publisher.save
-        render json: @publisher, serializer: PublisherSerializer
+        head :created
       else
-        render json: { message: 'Publisher is not saved',
-                       data: @publisher.errors }, status: 422
+        head :unprocessable_entity
       end
-    end
-
-    def info
-      render json: @books
     end
 
     private
