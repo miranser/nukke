@@ -19,16 +19,13 @@ module Api
         head :created
       else
         head :unprocessable_entity
-       
+
       end
     end
 
     def sell
-      if SellService.sell(@shop, sell_params)
-        head :no_content
-      else
-        head :unprocessable_entity
-      end
+      SellService.sell(@shop, sell_params)
+      head :no_content
     rescue ActiveRecord::RecordInvalid => invalid
       render json: { message: 'Books can\'t be sold', data: invalid.record.errors },
              status: :unprocessable_entity
@@ -42,7 +39,7 @@ module Api
 
     def shop_params
       defaults = { books_sold_count: 0 }
-      
+
       params.permit(:name).reverse_merge(defaults)
     end
 
