@@ -1,5 +1,24 @@
 require 'rails_helper'
 
 RSpec.describe Shop, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:shop) { create(:shop) }
+
+  it 'is valid with valid params' do
+    expect(shop).to be_valid
+  end
+
+  it 'is not valid without name' do
+    shop.name = nil
+    expect(shop).to_not be_valid
+  end
+
+  it 'is not valid without books sold count' do
+    shop.books_sold_count = nil
+    expect(shop).to_not be_valid
+  end
+
+  it 'is not valid with negative books sold count' do
+    shop.books_sold_count = -1
+    expect(shop).to_not be_valid
+  end
 end

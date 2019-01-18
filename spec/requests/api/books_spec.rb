@@ -16,7 +16,7 @@ RSpec.describe Api::BooksController, type: :request do
       expect(response).to have_http_status(:success)
 
       json = JSON.parse(response.body)
-      expect(json['data'].count).to eq(2)
+      expect(json['books'].count).to eq(2)
     end
   end
   describe '#index:id' do

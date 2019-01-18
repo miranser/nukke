@@ -17,11 +17,11 @@ RSpec.describe Api::ShopsController, type: :request do
       expect(response).to have_http_status(:success)
 
       json = JSON.parse(response.body)
-      expect(json['data'].count).to eq(2)
+      expect(json['shops'].count).to eq(2)
     end
   end
   describe '#show:id' do
-    it 'sends shop' do
+    it 'respond with 2xx' do
       get "/api/shops/#{shop_one.id}"
 
       expect(response).to have_http_status(:success)

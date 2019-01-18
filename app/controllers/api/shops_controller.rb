@@ -6,11 +6,11 @@ module Api
     before_action :set_shop, only: %i[show info sell]
     def index
       @shops = Shop.all
-      render json: @shops, each_serializer: ShopSerializer
+      render json: @shops, each_serializer: ShopSerializer, adapter: :json
     end
 
     def show
-      render json: @shop, serializer: ShopSerializer
+      render json: @shop, serializer: ShopSerializer, adapter: :json
     end
 
     def create

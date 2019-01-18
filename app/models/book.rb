@@ -5,5 +5,5 @@ class Book < ApplicationRecord
   has_many :book_shops 
   has_many :shops, through: :book_shops
 
-  
+  validates_presence_of :title, :author
 end

@@ -15,7 +15,7 @@ RSpec.describe Api::PublishersController, type: :request do
       expect(response).to have_http_status(:success)
 
       json = JSON.parse(response.body)
-      expect(json['data'].count).to eq(2)
+      expect(json['publishers'].count).to eq(2)
     end
 
     it 'shows specific publisher' do
