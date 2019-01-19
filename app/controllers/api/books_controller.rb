@@ -6,11 +6,11 @@ module Api
 
     def index
       @books = Book.all
-      render json: @books, each_serializer: BookSerializer, adapter: :json
+      render json: @books, each_serializer: BookSerializer
     end
 
     def show
-      render json: @book, serializer: BookSerializer, adapter: :json
+      render json: @book, serializer: BookSerializer
     end
 
     def create

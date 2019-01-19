@@ -6,11 +6,11 @@ module Api
     before_action :set_shop, only: %i[show info sell]
     def index
       @shops = Shop.all
-      render json: @shops, each_serializer: ShopSerializer, adapter: :json
+      render json: @shops, each_serializer: ShopSerializer
     end
 
     def show
-      render json: @shop, serializer: ShopSerializer, adapter: :json
+      render json: @shop, serializer: ShopSerializer
     end
 
     def create
@@ -19,13 +19,16 @@ module Api
         head :created
       else
         head :unprocessable_entity
-
+       
       end
     end
 
     def sell
-      SellService.sell(@shop, sell_params)
-      head :no_content
+      if SellService.sell(@shop, sell_params)
+        head :no_content
+      else
+        head :unprocessable_entity
+      end
     rescue ActiveRecord::RecordInvalid => invalid
       render json: { message: 'Books can\'t be sold', data: invalid.record.errors },
              status: :unprocessable_entity
@@ -39,7 +42,7 @@ module Api
 
     def shop_params
       defaults = { books_sold_count: 0 }
-
+      
       params.permit(:name).reverse_merge(defaults)
     end
 

@@ -6,7 +6,7 @@ module Api
 
     def index
       @publishers = Publisher.all
-      render json: @publishers, each_serializer: PublisherSerializer, adapter: :json
+      render json: @publishers, each_serializer: PublisherSerializer
     end
 
     def show
@@ -14,7 +14,7 @@ module Api
                   .where(books: { publisher_id: params[:id] })
                   .order(:books_sold_count).distinct
 
-      render json: shops, each_serializer: ShopSerializer, adapter: :json
+      render json: shops, each_serializer: ShopSerializer
     end
 
     def create
