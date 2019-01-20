@@ -7,17 +7,17 @@ RSpec.describe Shop, type: :model do
     expect(shop).to be_valid
   end
 
-  it 'is not valid without name' do
+  it 'is invalid without name' do
     shop.name = nil
     expect(shop).to_not be_valid
   end
 
-  it 'is not valid without books sold count' do
+  it 'is invalid without books sold count' do
     shop.books_sold_count = nil
     expect(shop).to_not be_valid
   end
 
-  it 'is not valid with negative books sold count' do
+  it 'is invalid with negative books sold count' do
     shop.books_sold_count = -1
     expect(shop).to_not be_valid
   end

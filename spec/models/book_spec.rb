@@ -7,12 +7,12 @@ RSpec.describe Book, type: :model do
     expect(book).to be_valid
   end
 
-  it 'is not valid without title' do
+  it 'is invalid without title' do
     book.title = nil
     expect(book).to_not be_valid
   end
 
-  it 'is not valid without autor' do
+  it 'is invalid without autor' do
     book.author = nil
     expect(book).to_not be_valid
   end

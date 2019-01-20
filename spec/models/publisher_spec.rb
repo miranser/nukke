@@ -9,7 +9,7 @@ RSpec.describe Publisher, type: :model do
     expect(publisher).to be_valid
   end
 
-  it 'is not valid without name' do
+  it 'is invalid without name' do
     publisher.name = nil
     expect(publisher).to_not be_valid
   end
