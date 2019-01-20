@@ -1,24 +1,10 @@
-# README
+# Test exam on Backend Ruby on Rails developer 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ruby version: 2.5.3
+Rails version: 5.2.2
+RSpec version: 3.8
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# Used gems:
+Faker - to populate database with data
+FactoryBot - for creating test fixtures
+Active model serializers - for handfull data serialization
